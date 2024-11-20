@@ -38,6 +38,14 @@ public class Player
     {
         hand.add(card);
     }
+    public boolean handIsEmpty()
+    {
+        if(this.hand.size() == 0)
+        {
+            return true;
+        }
+        return false;
+    }
     public String toString()
     {
         return this.name + " has " + this.points + " points\n" + this.name + "'s cards: " + this.hand;
