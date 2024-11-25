@@ -26,6 +26,13 @@ public class Player
     public ArrayList<Card> getHand() {
         return hand;
     }
+    public void showHand()
+    {
+        for(Card card: hand)
+        {
+            System.out.print(card.getRank() + " of " + card.getSuit());
+        }
+    }
 
     public int getPoints() {
         return points;
@@ -46,6 +53,35 @@ public class Player
         }
         return false;
     }
+    public int countCheck(String rank)
+    {
+        int count = 0;
+        for(int i = 0; i < hand.size(); i++)
+        {
+            if(this.hand.get(i).getRank() == rank)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+    public Card removeCard(String rank, String suit)
+    {
+        for(Card card: hand)
+        {
+            if(card.getRank().equals(rank) && card.getSuit().equals(suit))
+            {
+                hand.remove(card);
+                return card;
+            }
+        }
+        return null;
+    }
+    public void addCards(ArrayList<Card> list)
+    {
+        hand.addAll(list);
+    }
+
     public String toString()
     {
         return this.name + " has " + this.points + " points\n" + this.name + "'s cards: " + this.hand;
