@@ -42,11 +42,12 @@ public class Deck {
 
     public void shuffle()
     {
-        for(int i = cardsLeft - 1; i >= 0; i--)
+        for(int i = cardsLeft - 1; i > 0; i--)
         {
-            int r = (int)(Math.random() * i) + 1;
-            deck.add(r, deck.remove(i));
-            deck.add(i,deck.remove(r + 1));
+            int r = (int)(Math.random() * (i+1));
+            Card swap = deck.get(i);
+            deck.set(i, deck.get(r));
+            deck.set(r, swap);
         }
     }
 }

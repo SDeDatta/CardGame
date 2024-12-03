@@ -30,8 +30,9 @@ public class Player
     {
         for(Card card: hand)
         {
-            System.out.print(card.getRank() + " of " + card.getSuit());
+            System.out.print(card.getRank() + " of " + card.getSuit() + ", ");
         }
+        System.out.println("");
     }
 
     public int getPoints() {
