@@ -10,6 +10,7 @@ public class Player
     {
         this.name = name;
         this.points = 0;
+        // Initializes an arraylist of cards to create a hand
         this.hand = new ArrayList<>();
     }
     public Player(String name, ArrayList <Card> hand2)
@@ -19,20 +20,22 @@ public class Player
         this.points = 0;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
     public ArrayList<Card> getHand() {
         return hand;
     }
+    // Prints each card in a player's hand one by one
     public void showHand()
     {
         for(Card card: hand)
         {
             System.out.print(card.getRank() + " of " + card.getSuit() + ", ");
         }
-        System.out.println("");
+        System.out.println();
     }
 
     public int getPoints() {
@@ -42,32 +45,19 @@ public class Player
     {
         this.points += points;
     }
+    // Adds a card to a player's hand
     public void addCard(Card card)
     {
         hand.add(card);
     }
+    // Checks if a player has no cards left (their hand is empty)
     public boolean handIsEmpty()
     {
-        if(this.hand.size() == 0)
-        {
-            return true;
-        }
-        return false;
-    }
-    public int countCheck(String rank)
-    {
-        int count = 0;
-        for(int i = 0; i < hand.size(); i++)
-        {
-            if(this.hand.get(i).getRank() == rank)
-            {
-                count++;
-            }
-        }
-        return count;
+        return this.hand.isEmpty();
     }
     public Card removeCard(String rank, String suit)
     {
+        // Goes card by card in a hand to find one to remove based on a given rank and suit
         for(Card card: hand)
         {
             if(card.getRank().equals(rank) && card.getSuit().equals(suit))
@@ -78,6 +68,7 @@ public class Player
         }
         return null;
     }
+    // Adds an arraylist of cards (a pile) to a player's hand
     public void addCards(ArrayList<Card> list)
     {
         hand.addAll(list);

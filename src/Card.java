@@ -2,7 +2,7 @@ public class Card {
     private String rank;
     private String suit;
     private int value;
-
+    // Initializes values for a card
     public Card(String rank, String suit, int value)
     {
         this.rank = rank;
@@ -33,8 +33,7 @@ public class Card {
     public void setSuit(String suit) {
         this.suit = suit;
     }
-
-    @Override
+    // Prints the card in a formal _ of _ format
     public String toString() {
         return rank + " of " + suit;
     }
