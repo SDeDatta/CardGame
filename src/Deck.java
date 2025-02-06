@@ -4,16 +4,16 @@ public class Deck {
     private ArrayList<Card> deck;
     private int cardsLeft;
 
-    public Deck(String[] ranks, String[] suits, int[] points)
+    public Deck(String[] ranks, String[] suits, int[] points, CGView view)
     {
         deck = new ArrayList<>();
         // Loops through all possible suits and creates and adds a card with the rank in that iteration,
         // the suit, and the corresponding points
-        for(String suit:suits)
+        for(int i = 0; i < ranks.length; i++)
         {
-            for(int i = 0; i < ranks.length; i++)
+            for(String suit:suits)
             {
-                deck.add(new Card(ranks[i], suit, points[i]));
+                deck.add(new Card(ranks[i], suit, points[i],view));
             }
         }
         cardsLeft = deck.size();

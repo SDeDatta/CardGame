@@ -10,17 +10,19 @@ class Game
     private String[] ranks = {"A", "2", "3", "4", "5","6", "7", "8", "9", "10", "J", "Q", "K"};
     // Used to determine what rank should be played next
     private int currentRank;
+    private CGView window;
 
     public Game(int players2)
     {
         // Sets the values of the arrays and arraylists
-        String[] suits = {"Hearts", "Clubs", "Spades", "Diamonds"};
+        String[] suits = {"Spades", "Hearts", "Diamonds", "Clubs"};
         int[] points = {1,2,3,4,5,6,7,8,9,10,11,12,13};
         // Initializes a new deck, a list of players, and a pile of cards put down
-        deck = new Deck(ranks, suits, points);
+        deck = new Deck(ranks, suits, points, window);
         players = new Player[players2];
         pile = new ArrayList<>();
         currentRank = 0;
+        window = new CGView(this);
         // Adds players to the empty players list
         for(int i = 0; i < players2; i++)
         {

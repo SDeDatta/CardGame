@@ -1,13 +1,17 @@
+import java.awt.*;
+
 public class Card {
     private String rank;
     private String suit;
     private int value;
+    private CGView game;
     // Initializes values for a card
-    public Card(String rank, String suit, int value)
+    public Card(String rank, String suit, int value, CGView game)
     {
         this.rank = rank;
         this.suit = suit;
         this.value = value;
+        this.game = game;
     }
 
     public String getRank() {
@@ -36,5 +40,10 @@ public class Card {
     // Prints the card in a formal _ of _ format
     public String toString() {
         return rank + " of " + suit;
+    }
+
+    public void draw(Graphics g)
+    {
+
     }
 }
