@@ -44,6 +44,13 @@ public class Card {
 
     public void draw(Graphics g)
     {
-
+        //if(dx >= 0)
+        {
+            //g.drawImage(rightImage, x, y, rightImage.getWidth(tank), rightImage.getHeight(tank), tank);
+        }
+        //else
+        {
+            //g.drawImage(leftImage, x, y, leftImage.getWidth(tank), leftImage.getHeight(tank), tank);
+        }
     }
 }
