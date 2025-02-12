@@ -1,10 +1,14 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class Card {
     private String rank;
     private String suit;
+    private int x;
+    private int y = 100;
     private int value;
     private CGView game;
+    private Image cardImage;
     // Initializes values for a card
     public Card(String rank, String suit, int value, CGView game)
     {
@@ -14,6 +18,14 @@ public class Card {
         this.game = game;
     }
 
+    public void setX(int x)
+    {
+        this.x = x;
+    }
+    public void setCardImage(int num)
+    {
+        this.cardImage = new ImageIcon("Resources/" + Integer.toString(num) + ".png").getImage();
+    }
     public String getRank() {
         return rank;
     }
@@ -44,13 +56,6 @@ public class Card {
 
     public void draw(Graphics g)
     {
-        //if(dx >= 0)
-        {
-            //g.drawImage(rightImage, x, y, rightImage.getWidth(tank), rightImage.getHeight(tank), tank);
-        }
-        //else
-        {
-            //g.drawImage(leftImage, x, y, leftImage.getWidth(tank), leftImage.getHeight(tank), tank);
-        }
+        g.drawImage(cardImage, x, y, cardImage.getWidth(game), cardImage.getHeight(game), game);
     }
 }

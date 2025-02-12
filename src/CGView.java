@@ -9,6 +9,7 @@ public class CGView extends JFrame
     private Image firstBgImage;
     private Image gameBgImage;
     private Image endGameImage;
+    private Player currentPlayer;
 
     public CGView(Game game)
     {
@@ -16,7 +17,7 @@ public class CGView extends JFrame
         firstBgImage = new ImageIcon("Resources/FirstBg.png").getImage();
         gameBgImage = new ImageIcon("Resources/gameBg.jpg").getImage();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setTitle("Tic Tac Toe");
+        this.setTitle("Bluff");
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setVisible(true);
     }
@@ -33,9 +34,20 @@ public class CGView extends JFrame
 
     }
 
+    public void setCurrentPlayer(Player player)
+    {
+        this.currentPlayer = player;
+    }
+
     public void paintGame(Graphics g)
     {
         g.drawImage(gameBgImage, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
+        g.drawString(currentPlayer.getName() + " 's turn", 100, 200);
+        for(Card c : currentPlayer.getHand())
+        {
+            c.draw(g);
+        }
+
     }
     public void paintFirstScreen(Graphics g)
     {

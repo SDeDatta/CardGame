@@ -1,4 +1,5 @@
 // Bluff by Surya De Datta
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -40,6 +41,10 @@ class Game
             }
         }
         state = "game";
+    }
+    public Player[] getPlayers()
+    {
+        return this.players;
     }
     public String getState()
     {
@@ -85,6 +90,7 @@ class Game
             // Goes through a round (each player plays once)
             for(int i = 0; i < players.length; i++)
             {
+                window.setCurrentPlayer(players[i]);
                 playTurn(players[i], input);
                 checkBluff(players[i], input);
                 // Augments the current rank and ensure it will loop around to Ace after King
@@ -107,6 +113,7 @@ class Game
         System.out.println(player.getName() + " 's turn");
         System.out.println("Your hand: ");
         player.showHand();
+        window.repaint();
         // Shows the rank the player is supposed to play
         System.out.println("Rank to play: " + ranks[currentRank]);
         System.out.println("How many cards would you like to put down (1-4)? ");
