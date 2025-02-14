@@ -6,6 +6,8 @@ import java.util.Scanner;
 class Game
 {
     private Player[] players;
+    private Player currentPlayer;
+    private int currentPlayerIndex;
     private Deck deck;
     ArrayList<Card> pile;
     private final String[] ranks = {"A", "2", "3", "4", "5","6", "7", "8", "9", "10", "J", "Q", "K"};
@@ -13,38 +15,54 @@ class Game
     private int currentRank;
     private CGView window;
     private boolean truth;
-    private String state = "instructions";
+    private String state;
 
-    public Game(int players2)
+    public Game()
     {
+        this.state = "instructions"; // Initialize state first
+        window = new CGView(this);
         // Sets the values of the arrays and arraylists
         String[] suits = {"Spades", "Hearts", "Diamonds", "Clubs"};
         int[] points = {1,2,3,4,5,6,7,8,9,10,11,12,13};
         // Initializes a new deck, a list of players, and a pile of cards put down
-        window = new CGView(this);
         deck = new Deck(ranks, suits, points, window);
-        players = new Player[players2];
         pile = new ArrayList<>();
         currentRank = 0;
+        Scanner input = new Scanner(System.in);
+        System.out.println("How many players would you like? ");
+        window.repaint();
+        int competitors = input.nextInt();
+        players = new Player[competitors];
         // Adds players to the empty players list
-        for(int i = 0; i < players2; i++)
+        for(int i = 0; i < competitors; i++)
         {
             players[i] = new Player("Player " + (i+1));
         }
         deck.shuffle();
         // Deals cards to each player
-        for(int i = 0; i < 52/players2; i++)
+        for(int i = 0; i < 52/competitors; i++)
         {
             for(Player player: players)
             {
                 player.addCard(deck.deal());
             }
         }
+        currentPlayerIndex = 0;
         state = "game";
+        window.repaint();
     }
     public Player[] getPlayers()
     {
         return this.players;
+    }
+    public Player getCurrentPlayer()
+    {
+        return this.currentPlayer;
+    }
+
+    public int getCurrentPlayerIndex()
+    {
+        return currentPlayerIndex;
     }
     public String getState()
     {
@@ -68,12 +86,14 @@ class Game
     // Checks if the game is over and returns who won
     public Player gameOver()
     {
-        for (Player player : players) {
-            if (player.handIsEmpty()) {
-                return player;
-            }
-        }
-        state = "gameOver";
+       if(getPlayers() != null && players.length != 0) {
+           for (Player player : players) {
+               if (player.handIsEmpty()) {
+                   state = "gameOver";
+                   return player;
+               }
+           }
+       }
         return null;
     }
     public void addToPile(Card card)
@@ -90,9 +110,10 @@ class Game
             // Goes through a round (each player plays once)
             for(int i = 0; i < players.length; i++)
             {
-                window.setCurrentPlayer(players[i]);
-                playTurn(players[i], input);
-                checkBluff(players[i], input);
+                this.currentPlayer = players[i];
+                currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+                playTurn(currentPlayer, input);
+                checkBluff(currentPlayer, input);
                 // Augments the current rank and ensure it will loop around to Ace after King
                 currentRank = (currentRank + 1) % ranks.length;
                 if(gameOver() != null)
@@ -100,6 +121,7 @@ class Game
                     // Prints the winner if there is one
                     Player winner = gameOver();
                     System.out.println("Congrats " + winner.getName() + ", you win!");
+                    window.repaint();
                     System. exit(0);
                 }
             }
@@ -179,10 +201,8 @@ class Game
     {
         Scanner input = new Scanner(System.in);
         printInstructions();
-        System.out.println("How many players would you like? ");
-        int competitors = input.nextInt();
         // Creates a game based on the number of players the user(s) would like
-        Game game = new Game(competitors);
+        Game game = new Game();
         game.playGame();
     }
 }

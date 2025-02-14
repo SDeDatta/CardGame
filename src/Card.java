@@ -5,7 +5,7 @@ public class Card {
     private String rank;
     private String suit;
     private int x;
-    private int y = 100;
+    private int y = 300;
     private int value;
     private CGView game;
     private Image cardImage;
@@ -56,6 +56,7 @@ public class Card {
 
     public void draw(Graphics g)
     {
-        g.drawImage(cardImage, x, y, cardImage.getWidth(game), cardImage.getHeight(game), game);
+
+        g.drawImage(cardImage, x, y, 150, 150, game);
     }
 }

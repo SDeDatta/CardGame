@@ -12,15 +12,16 @@ public class Deck {
         int startX = 50;
         int startY = 100;
         int spacing = 30;
+        int counter = 0;
         for(int i = 0; i < ranks.length; i++)
         {
-            for(int j = 0; j < 4; j++)
+            for(int j = 0; j < suits.length; j++)
             {
-                deck.add(new Card(ranks[i], suits[i], points[i],view));
-                Card card = deck.get(i);
-                card.setCardImage((i+1)*(j+1));
-                card.setX(startX + i * spacing);
+                counter++;
+                Card card = new Card(ranks[i], suits[j], points[i],view);
                 deck.add(card);
+                card.setCardImage(counter);
+                card.setX(startX * i + spacing);
             }
         }
         cardsLeft = deck.size();
