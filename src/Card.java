@@ -4,11 +4,11 @@ import java.awt.*;
 public class Card {
     private String rank;
     private String suit;
-    private int x;
-    private int y = 300;
     private int value;
     private CGView game;
     private Image cardImage;
+    private static final int CARD_WIDTH = 55;
+    private static final int CARD_HEIGHT = 85;
     // Initializes values for a card
     public Card(String rank, String suit, int value, CGView game)
     {
@@ -17,14 +17,18 @@ public class Card {
         this.value = value;
         this.game = game;
     }
-
-    public void setX(int x)
+    public int getWIDTH()
     {
-        this.x = x;
+        return CARD_WIDTH;
     }
+    public int getHEIGHT()
+    {
+        return CARD_HEIGHT;
+    }
+
     public void setCardImage(int num)
     {
-        this.cardImage = new ImageIcon("Resources/" + Integer.toString(num) + ".png").getImage();
+        this.cardImage = new ImageIcon("Resources/" + num + ".png").getImage();
     }
     public String getRank() {
         return rank;
@@ -53,10 +57,10 @@ public class Card {
     public String toString() {
         return rank + " of " + suit;
     }
-
-    public void draw(Graphics g)
+    // Card draws itself
+    public void draw(Graphics g, int x, int y)
     {
 
-        g.drawImage(cardImage, x, y, 150, 150, game);
+        g.drawImage(cardImage, x, y, CARD_WIDTH, CARD_HEIGHT, game);
     }
 }

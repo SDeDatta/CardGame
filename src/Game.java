@@ -1,5 +1,4 @@
 // Bluff by Surya De Datta
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,6 +14,7 @@ class Game
     private int currentRank;
     private CGView window;
     private boolean truth;
+    // Initializes a state variable to determine what stage of the game we are in
     private String state;
 
     public Game()
@@ -28,9 +28,10 @@ class Game
         deck = new Deck(ranks, suits, points, window);
         pile = new ArrayList<>();
         currentRank = 0;
+        window.repaint();
         Scanner input = new Scanner(System.in);
         System.out.println("How many players would you like? ");
-        window.repaint();
+        //window.repaint();
         int competitors = input.nextInt();
         players = new Player[competitors];
         // Adds players to the empty players list
@@ -48,6 +49,7 @@ class Game
             }
         }
         currentPlayerIndex = 0;
+        currentPlayer = players[currentPlayerIndex];
         state = "game";
         window.repaint();
     }
@@ -81,7 +83,7 @@ class Game
                 "You can put up to 4 cards down per turn. After each turn, all other players in the game are asked " +
                 "whether they think the player who just put down cards bluffed or not. If someone calls bluff when " +
                 "there isn't one, they have to take the whole pile. Same for the person who bluffed if they get " +
-                "caught. Make sure to type each suit and rank exactly as written in your hand. Enjoy! ");
+                "caught. Make sure to type each suit and rank exactly as written in your hand. 4+ players recommended. Enjoy! ");
     }
     // Checks if the game is over and returns who won
     public Player gameOver()
@@ -90,6 +92,7 @@ class Game
            for (Player player : players) {
                if (player.handIsEmpty()) {
                    state = "gameOver";
+                   currentPlayer = player;
                    return player;
                }
            }
@@ -111,7 +114,7 @@ class Game
             for(int i = 0; i < players.length; i++)
             {
                 this.currentPlayer = players[i];
-                currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+                currentPlayerIndex = i;
                 playTurn(currentPlayer, input);
                 checkBluff(currentPlayer, input);
                 // Augments the current rank and ensure it will loop around to Ace after King
@@ -122,7 +125,8 @@ class Game
                     Player winner = gameOver();
                     System.out.println("Congrats " + winner.getName() + ", you win!");
                     window.repaint();
-                    System. exit(0);
+                    break;
+                    //System. exit(0);
                 }
             }
 
@@ -199,7 +203,6 @@ class Game
     }
     public static void main(String[] args)
     {
-        Scanner input = new Scanner(System.in);
         printInstructions();
         // Creates a game based on the number of players the user(s) would like
         Game game = new Game();
